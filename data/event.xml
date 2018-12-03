@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<list>
+  <event>
+    <id>1</id>
+    <event_date>2018-11-16</event_date>
+    <event_name>年代別懇親会</event_name>
+    <update_date>2018-11-10</update_date>
+  </event>
+  <event>
+    <id>2</id>
+    <event_date>2018-12-3</event_date>
+    <event_name>忘年会</event_name>
+    <update_date>2018-11-1</update_date>
+  </event>
+</list>
