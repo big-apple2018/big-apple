@@ -33,9 +33,17 @@
       const firestore = firebase.firestore();
       const settings = { timestampsInSnapshots: true };
       firestore.settings(settings);
+
+      // アカウントを取得
+      firestore.collection(`members`).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              console.log(`${doc.data().name}`);
+          });
+      });
       
       // アカウントを取得
-      var docRef = firestore.collection("teams").doc();
+      /*
+      var docRef = firestore.collection(`members`).doc();
       docRef.get().then(function(doc) {
           if (doc.exists) {
               console.log("Document data:", doc.data());
@@ -46,6 +54,7 @@
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
+      */
     }
 
   </script>
