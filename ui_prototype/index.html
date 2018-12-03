@@ -20,7 +20,6 @@
     How about a simple folio page to show off everything you're going to make!
    
   -->
-  <div class="siimple-content--fluid">
     <div class="siimple-box siimple-box--primary">
      <div class="siipmple-box-title siimple--text-center">
       <img src="./img/BIGAPPLE_logo.png" alt="ロゴ">
@@ -28,18 +27,22 @@
       </div>
     </div>
     <div class="main-area">
-     <div class="welcome-message">
+     <div class="welcome-message siimple--text-center ">
         イベント通知サービス<br>
         「BIG APPLE」へようこそ<br>
         あなたのお名前を入力してください
       </div>
-    <div>
-      <input type="text" placeholder="りんご　太郎" value="" />
+      <form class="siimple-form">
+        <div class="siimple--text-center">
+          <input type="text" class="siimple-form siimple-form-field" placeholder="りんご　太郎" value="" />
+        </div>
+        <div class="siimple--text-center">
+          <div class="siimple-btn siimple-btn--primary">
+            イベントを見る
+          </div>
+        </div>
+      </form>
     </div>
-    <div>
-      <input type="submit" name="goEventList" value="イベントを見る" />
-    </div>
-  </div>
   <!-- Scripts -->
   <script src="scripts/index.js"></script>
 </body>
