@@ -35,9 +35,7 @@
     // イベントを見る
     function eventViews() {
       var accountName = document.getElementById("accountName").value;
-      if (!accountName) {
-        return;
-      }
+
       // アカウントを取得
       var isRegistered = false;
       firestore.collection(`members`).get().then((querySnapshot) => {
@@ -53,6 +51,9 @@
       // アカウントを作成
       if (!isRegistered) {
         try{
+          if (accountName.match(/ 　/)) {
+            throw new Error("スペースのため登録対象外");
+          }
           firestore.collection(`members`).add({
             belong: "xxx",
             name: accountName,
