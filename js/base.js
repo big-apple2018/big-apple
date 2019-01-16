@@ -66,22 +66,20 @@ function addEvent(db, doc, name, date, now){
 // 日付フォーマット変更処理
 function modEventDate(date){
 	var result = date.replace("-", "/");
-	
 	// "-"が存在する限り繰り返し
 	while(result !== date) {
 		date = date.replace("-", "/");
 		result = result.replace("-", "/");
 	}
-	
 	return date;
 }
 
 // 現在時刻の取得関数
 function getNowDate(){
-	var date = new Date();
-	var now =[date.getFullYear(),
-				date.getMonth() + 1,
-				date.getDate()].join( '/' );
-	
-	return now;
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var mm   = ("00" + (date.getMonth()+1)).slice(-2);
+    var dd   = ("00" + date.getDate()).slice(-2);
+    var res  = yyyy + "/" + mm + "/" + dd;
+    return res;
 }
