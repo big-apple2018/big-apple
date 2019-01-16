@@ -1,3 +1,8 @@
 body {
 	background-image: url("../img/background_1.png");
 }
+
+.welcome-message {
+	font-size: large;
+	color: #fcfcfc;
+}
