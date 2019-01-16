@@ -1,12 +1,12 @@
 window.onload = function(){
 	// firebaseコンフィグ
 	var config = {
-		apiKey: "AIzaSyBqtqrnzRPl8swfPwvlwlC7CfkAL5J6-zA",
-		authDomain: "big-apple-f214e.firebaseapp.com",
-		databaseURL: "https://big-apple-f214e.firebaseio.com",
-		projectId: "big-apple-f214e",
-		storageBucket: "big-apple-f214e.appspot.com",
-		messagingSenderId: "182384246777"
+		apiKey: "AIzaSyApruF8W7NBxBqKJfsPFxTSZ5V8uMbZGjA",
+		authDomain: "bigapple-e9fe1.firebaseapp.com",
+		databaseURL: "https://bigapple-e9fe1.firebaseio.com",
+		projectId: "bigapple-e9fe1",
+		storageBucket: "bigapple-e9fe1.appspot.com",
+		messagingSenderId: "502352594159"
 	};
 	
 	firebase.initializeApp(config);
