@@ -32,34 +32,41 @@
     const settings = { timestampsInSnapshots: true };
     firestore.settings(settings);
 
-   // イベントを見る
-   function eventViews() {
-
-      // アカウントを取得
+    // イベントを見る
+    function eventViews() {
       var accountName = document.getElementById("accountName").value;
+      if (!accountName) {
+        return;
+      }
+      // アカウントを取得
+      var isRegistered = false;
       firestore.collection(`members`).get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               var targetName = `${doc.data().name}`;
               if (accountName == targetName) {
-                console.log(targetName + ":一致");
-              } else {
-                console.log(targetName + ":不一致");
-
-                if (accountName) {
-                  // アカウントを作成
-                  firestore.collection(`members`).add({
-                    belong: "xxx",
-                    name: accountName,
-                  });
-                }
-              }
-              
-              // イベント一覧に移動
-              if (accountName) {
-                location.href = './list.html'
+                console.log(targetName + ":登録済み");
+                isRegistered = true;
               }
           });
       });
+
+      // アカウントを作成
+      if (!isRegistered) {
+        try{
+          firestore.collection(`members`).add({
+            belong: "xxx",
+            name: accountName,
+          });
+          console.log(accountName + ":登録成功");
+          isRegistered = true;
+        } catch(e) {
+          console.log(accountName + ":登録失敗");
+        }
+      }
+      // イベント一覧に移動
+      if (isRegistered) {
+        location.href = './list.html'
+      }
     }
 
   </script>
