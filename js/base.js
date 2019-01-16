@@ -71,15 +71,23 @@ function modEventDate(date){
 		date = date.replace("-", "/");
 		result = result.replace("-", "/");
 	}
-	return date;
+	//TODO:スマホからだとyyyymdになるためyyyymmddに変換
+	//     無理矢理だが今は動けば良いので機会があれば修正する。
+	var tmpDate
+	tmpDate = new Date(date);
+	var yyyy = tmpDate.getFullYear();
+	var mm   = ("00" + (tmpDate.getMonth()+1)).slice(-2);
+	var dd   = ("00" + tmpDate.getDate()).slice(-2);
+	var res  = yyyy + "/" + mm + "/" + dd;
+	return res;
 }
 
 // 現在時刻の取得関数
 function getNowDate(){
-    var date = new Date();
-    var yyyy = date.getFullYear();
-    var mm   = ("00" + (date.getMonth()+1)).slice(-2);
-    var dd   = ("00" + date.getDate()).slice(-2);
-    var res  = yyyy + "/" + mm + "/" + dd;
-    return res;
+	var date = new Date();
+	var yyyy = date.getFullYear();
+	var mm   = ("00" + (date.getMonth()+1)).slice(-2);
+	var dd   = ("00" + date.getDate()).slice(-2);
+	var res  = yyyy + "/" + mm + "/" + dd;
+	return res;
 }
