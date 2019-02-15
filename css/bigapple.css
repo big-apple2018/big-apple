@@ -1,14 +1,14 @@
 body {
 	background-image: url("../img/background_1.png");
 	font-family: 'Poiret One', cursive;
-	font-size: calc(112.5% + 0.25vw);
+	font-size: calc(200.5% + 0.5vw);
 	color: rgba(255,255,255,1.0);
 }
 
 .ens-title-area {
 	background: rgba(0,0,153,0.5);
 	text-align: center;
-	font-size: calc(112.5% + 0.5vw);
+	font-size: calc(100% + 0.5vw);
 }
 
 .ens-logo {
@@ -22,4 +22,10 @@ body {
 .form_area {
 	background:  rgba(255,255,204,1.0);
 	margin-bottom:20px;
+	color: rgba(76,76,76,1.0);
 }
+
+.ens-footer {
+	font-size: calc(75% + 0.01vw);
+}
+
