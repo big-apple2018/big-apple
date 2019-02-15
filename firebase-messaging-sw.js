@@ -1,6 +1,19 @@
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
 
+// service-worker.js
+self.addEventListener('install', function(e) {
+  console.log('[ServiceWorker] Install');
+});
+
+self.addEventListener('activate', function(e) {
+  console.log('[ServiceWorker] Activate');
+});
+
+
+// 現状では、この処理を書かないとService Workerが有効と判定されないようです
+self.addEventListener('fetch', function(event) {});
+
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
 firebase.initializeApp({
