@@ -91,3 +91,13 @@ function getNowDate(){
 	var res  = yyyy + "/" + mm + "/" + dd;
 	return res;
 }
+
+//TODO
+// イベント削除クリック時
+//イベントの削除機能の他にdocがNULLだった場合の例外処理を作成する
+
+// イベント削除関数
+function delEvent(db, doc){
+	db.collection("events").document(doc).remove();
+}
+
