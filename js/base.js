@@ -42,7 +42,7 @@ window.onload = function(){
 		}
 	}).catch(function(err) {
 		console.log('An error occurred while retrieving token. ', err);
-		showToken('Error retrieving Instance ID token. ', err);
+		//showToken('Error retrieving Instance ID token. ', err);
 		setTokenSentToServer(false);
 	});
 	
@@ -57,7 +57,7 @@ window.onload = function(){
 			sendTokenToServer(refreshedToken);
 		}).catch(function(err) {
 			console.log('Unable to retrieve refreshed token ', err);
-			showToken('Unable to retrieve refreshed token ', err);
+			//showToken('Unable to retrieve refreshed token ', err);
 		});
 	});
 	
