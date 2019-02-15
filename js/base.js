@@ -16,11 +16,43 @@ window.onload = function(){
 	
 	// firestoreメッセージインスタンスの生成
 	var messaging = firebase.messaging();
+
+	messaging.onMessage(function(payload) {
+		console.log("Message received. ", payload);
+		alert(payload.notification.title+"\r\n"
+			  +payload.notification.body+"\r\n"
+			  +payload.notification.icon);
+	});
+
+
+	//プッシュ通知パーミッション取得
+	var requestPermission = function () {
+		messaging.requestPermission()
+		.then(function() {
+		//ユーザー毎のトークンを取得して画面に表示する
+		messaging.getToken()
+		.then(function(token) {
+			console.log('Token refreshed.');
+			console.log("token "+token);
+			document.getElementById("txtIIToken").value = token;
+		})
+		.catch(function(err) {
+			console.log('Unable to retrieve refreshed token ', err);
+		});
+		})
+		.catch(function(err) {
+			console.log('Unable to get permission to notify.', err);
+		});
+	}
+
+	//パーミッションを取得するボタンクリック時
+	document.getElementById("btnWebPush").onclick = requestPermission;
 	
 	// web認証情報の設定
-	messaging.usePublicVapidKey("BCy0YCkfVdIkyXbJ-Wzu5iWB4v2S8hGprAUyJAkIk6u0JCTuD8z43fptG2RZ0BxbyTigH3HLGR55LvY0TvHVNik");
+	//messaging.usePublicVapidKey("BCy0YCkfVdIkyXbJ-Wzu5iWB4v2S8hGprAUyJAkIk6u0JCTuD8z43fptG2RZ0BxbyTigH3HLGR55LvY0TvHVNik");
 	
 	// クライアントの通知許可確認
+	/*
 	messaging.requestPermission().then(function() {
 		console.log('Notification permission granted.');
 		// TODO(developer): Retrieve an Instance ID token for use with FCM.
@@ -29,6 +61,7 @@ window.onload = function(){
 	});
 	
 	// トークンの取得
+	
 	messaging.getToken().then(function(currentToken) {
 		if (currentToken) {
 			sendTokenToServer(currentToken);
@@ -60,12 +93,7 @@ window.onload = function(){
 			//showToken('Unable to retrieve refreshed token ', err);
 		});
 	});
-	
-	
-	// 操作中
-	messaging.onMessage(function(payload) {
-		console.log('Message received. ', payload);
-	});
+	*/
 
 	
 	// タイムスタンプの設定を記述
