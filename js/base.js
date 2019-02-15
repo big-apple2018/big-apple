@@ -15,7 +15,7 @@ window.onload = function(){
 	var db = firebase.firestore();
 	
 	// firestoreメッセージインスタンスの生成
-	var message = firebase.messaging();
+	var messaging = firebase.messaging();
 	
 	// web認証情報の設定
 	messaging.usePublicVapidKey("BCy0YCkfVdIkyXbJ-Wzu5iWB4v2S8hGprAUyJAkIk6u0JCTuD8z43fptG2RZ0BxbyTigH3HLGR55LvY0TvHVNik");
