@@ -14,6 +14,60 @@ window.onload = function(){
 	// firestoreインスタンスの生成
 	var db = firebase.firestore();
 	
+	// firestoreメッセージインスタンスの生成
+	var message = firebase.messaging();
+	
+	// web認証情報の設定
+	messaging.usePublicVapidKey("BCy0YCkfVdIkyXbJ-Wzu5iWB4v2S8hGprAUyJAkIk6u0JCTuD8z43fptG2RZ0BxbyTigH3HLGR55LvY0TvHVNik");
+	
+	// クライアントの通知許可確認
+	messaging.requestPermission().then(function() {
+		console.log('Notification permission granted.');
+		// TODO(developer): Retrieve an Instance ID token for use with FCM.
+	}).catch(function(err) {
+		console.log('Unable to get permission to notify.', err);
+	});
+	
+	// トークンの取得
+	messaging.getToken().then(function(currentToken) {
+		if (currentToken) {
+			sendTokenToServer(currentToken);
+			updateUIForPushEnabled(currentToken);
+		} else {
+			// Show permission request.
+			console.log('No Instance ID token available. Request permission to generate one.');
+			// Show permission UI.
+			updateUIForPushPermissionRequired();
+			setTokenSentToServer(false);
+		}
+	}).catch(function(err) {
+		console.log('An error occurred while retrieving token. ', err);
+		showToken('Error retrieving Instance ID token. ', err);
+		setTokenSentToServer(false);
+	});
+	
+	// トークンのリフレッシュ
+	messaging.onTokenRefresh(function() {
+	messaging.getToken().then(function(refreshedToken) {
+			console.log('Token refreshed.');
+			// Indicate that the new Instance ID token has not yet been sent to the
+			// app server.
+			setTokenSentToServer(false);
+			// Send Instance ID token to app server.
+			sendTokenToServer(refreshedToken);
+		}).catch(function(err) {
+			console.log('Unable to retrieve refreshed token ', err);
+			showToken('Unable to retrieve refreshed token ', err);
+		});
+	});
+	
+	
+	// 操作中
+	messaging.onMessage(function(payload) {
+		console.log('Message received. ', payload);
+	});
+
+	
 	// タイムスタンプの設定を記述
 	var setting = { timestampsInSnapshots:true };
 	db.settings(setting);
