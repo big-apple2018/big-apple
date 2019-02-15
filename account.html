@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  
+  <!--  Meta  -->
+  <meta charset="UTF-8" />
+  <title>BIG APPLE</title>
+  
+  <!--  Styles  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/siimple@3.1.1/dist/siimple.min.css" />
+  <link rel="stylesheet" href="./css/bigapple.css" />
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+  <script type="text/javascript">
+    // service workerが有効なら、service-worker.js を登録します
+    if ('serviceWorker' in navigator) {
+      console.log("service-worker ON");
+      navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
+    }
+
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyApruF8W7NBxBqKJfsPFxTSZ5V8uMbZGjA",
+      authDomain: "bigapple-e9fe1.firebaseapp.com",
+      databaseURL: "https://bigapple-e9fe1.firebaseio.com",
+      projectId: "bigapple-e9fe1",
+      storageBucket: "bigapple-e9fe1.appspot.com",
+      messagingSenderId: "502352594159"
+    };
+    firebase.initializeApp(config);
+    const firestore = firebase.firestore();
+    const settings = { timestampsInSnapshots: true };
+    firestore.settings(settings);
+
+    // イベントを見る
+    function eventViews() {
+      var accountName = document.getElementById("accountName").value;
+
+      // アカウントを取得
+      var isRegistered = false;
+      firestore.collection(`members`).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              var targetName = `${doc.data().name}`;
+              if (accountName == targetName) {
+                console.log(targetName + ":登録済み");
+                isRegistered = true;
+              }
+          });
+      });
+
+      // アカウントを作成
+      if (!isRegistered) {
+        try{
+          if (accountName.match(/ 　/)) {
+            throw new Error("スペースのため登録対象外");
+          }
+          firestore.collection(`members`).add({
+            belong: "xxx",
+            name: accountName,
+          });
+          console.log(accountName + ":登録成功");
+          isRegistered = true;
+        } catch(e) {
+          console.log(accountName + ":登録失敗");
+        }
+      }
+      // イベント一覧に移動
+      if (isRegistered) {
+        location.href = './list.html'
+      }
+    }
+
+  </script>
+
+</head>
+<body>
+    <div class="siimple-box siimple-box--primary">
+        <div class="siipmple-box-title siimple--text-center">
+         <img src="./img/BIGAPPLE_logo.png" alt="ロゴ">
+          EVENT NOTICE SERVICE
+         </div>
+       </div>
+       <div class="main-area">
+        <div class="welcome-message siimple--text-center ">
+           イベント通知サービス<br>
+           「BIG APPLE」へようこそ<br>
+           あなたのお名前を入力してください
+         </div>
+         <form class="siimple-form">
+           <div class="siimple--text-center">
+             <input type="text" id="accountName" class="siimple-form siimple-form-field" placeholder="りんご　太郎" value="" />
+           </div>
+           <div class="siimple--text-center">
+             <div class="siimple-btn siimple-btn--primary" onclick="eventViews()">
+               イベントを見る
+             </div>
+           </div>
+         </form>
+       </div>
+</body>
+</html>
